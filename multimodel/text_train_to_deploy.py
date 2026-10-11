@@ -12,11 +12,12 @@ class Text_Train_to_Deploy:
    self.avg_test_loss=[]
    self.total_test_loss=[]
 
-   def train(self, model, loader, epoch, loss_fun, optimizer):
+  def train(self, model, loader, epoch, loss_fun, optimizer):
 
      model.to(self.device)
-     model.train()
+     
      for _ in range(epoch):
+       model.train()
        total_loss = 0
        for x, y in loader:
            x = x.to(self.device)
@@ -30,14 +31,14 @@ class Text_Train_to_Deploy:
            error.backward()
            optimizer.step()
            total_loss += error.item()
-                total_train_loss.append(total_loss)
+                     self.total_train_loss.append(total_loss)
 
            
-        avg_loss = total_loss / len(loader)
+      avg_loss = total_loss / len(loader)
 
            
-                 self.avg_train_loss.append(avg_loss)
-    def validation(self,model,loader,loss_fun):
+          self.avg_train_loss.append(avg_loss)
+   def validation(self,model,loader,loss_fun):
 
       model.to(self.device)
       model.eval()
@@ -49,13 +50,13 @@ class Text_Train_to_Deploy:
         logits=model(x)
         error=loss_fun(logits.reshape(-1,logits.size(-1)),y.reshape(-1))
         total_loss+=error.item()
-        avg_loss=total_loss/len(loader)
-        total_val_loss.append(total_loss)
+        self.total_val_loss.append(total_loss)
+       avg_loss=total_loss/len(loader)
        self.avg_val_loss.append(avg_loss)
 
 
 
-    def test(self,model,loader,loss_fun):
+   def test(self,model,loader,loss_fun):
       model.to(self.device)
       model.eval()
       total_loss=0
@@ -66,25 +67,25 @@ class Text_Train_to_Deploy:
          logits=model(x)
          error=loss_fun(logits.reshape(-1,logits.size(-1)),y.reshape(-1))
          total_loss+=error.item()
-         avg_loss=total_loss/len(loader)
-         total_val_loss.append(total_loss)
+    self.total_test_loss.append(total_loss)
+      avg_loss=total_loss/len(loader)
       self.avg_test_loss.append(avg_loss)
 
 
-    def deploy(self, model):
+   def deploy(self, model):
 
      model.to(self.device)
      model.eval()
 
      return model
-    def save(self, model, path):
+   def save(self, model, path):
        torch.save(model.state_dict(), path)
 
-    def load(self, model, path):
+   def load(self, model, path):
         model.load_state_dict(
         torch.load(path, map_location=self.device, weights_only=True))
         return model
-    def generate(self, model, tokenizer, prompt, max_length=100):
+   def generate(self, model, tokenizer, prompt, max_length=100):
 
        model.to(self.device)
        model.eval()
