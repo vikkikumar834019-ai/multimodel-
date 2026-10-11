@@ -1,4 +1,4 @@
-class GPT(nn.Module):
+class GPT5(nn.Module):
     def __init__(self,vocab_size,d_model,num_heads,num_layers,max_seq_len):
       super().__init__()
       self.d_model=d_model
@@ -42,7 +42,7 @@ class GPT(nn.Module):
           positions = torch.arange(seq_len,device=x.device)
           freqs = torch.outer(positions,self.rope_freq)
           cos = torch.cos(freqs)[None, None, :, :]
-sin = torch.sin(freqs)[None, None, :, :]
+          sin = torch.sin(freqs)[None, None, :, :]
           q_even = q[..., 0::2]
           q_odd = q[..., 1::2]
           q_rotated_even = q_even * cos - q_odd * sin
