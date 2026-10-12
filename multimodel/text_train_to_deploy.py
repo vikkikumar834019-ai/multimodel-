@@ -31,13 +31,15 @@ class Text_Train_to_Deploy:
            error.backward()
            optimizer.step()
            total_loss += error.item()
-                     self.total_train_loss.append(total_loss)
+           self.total_train_loss.
+append(total_loss)
 
            
       avg_loss = total_loss / len(loader)
 
            
-          self.avg_train_loss.append(avg_loss)
+      self.avg_train_loss.
+append(avg_loss)
    def validation(self,model,loader,loss_fun):
 
       model.to(self.device)
@@ -48,11 +50,13 @@ class Text_Train_to_Deploy:
         x=x.to(self.device)
         y=y.to(self.device)
         logits=model(x)
-        error=loss_fun(logits.reshape(-1,logits.size(-1)),y.reshape(-1))
+        error=loss_fun
+(logits.reshape(-1,logits.size(-1)),y.reshape(-1))
         total_loss+=error.item()
-        self.total_val_loss.append(total_loss)
-       avg_loss=total_loss/len(loader)
-       self.avg_val_loss.append(avg_loss)
+        self.total_val
+_loss.append(total_loss)
+      avg_loss=total_loss/len(loader)
+      self.avg_val_loss.append(avg_loss)
 
 
 
@@ -65,9 +69,11 @@ class Text_Train_to_Deploy:
          x=x.to(self.device)
          y=y.to(self.device)
          logits=model(x)
-         error=loss_fun(logits.reshape(-1,logits.size(-1)),y.reshape(-1))
+         error=loss_fun
+(logits.reshape(-1,logits.size(-1)),y.reshape(-1))
          total_loss+=error.item()
-    self.total_test_loss.append(total_loss)
+         self.total_test_loss.
+append(total_loss)
       avg_loss=total_loss/len(loader)
       self.avg_test_loss.append(avg_loss)
 
@@ -83,7 +89,7 @@ class Text_Train_to_Deploy:
 
    def load(self, model, path):
         model.load_state_dict(
-        torch.load(path, map_location=self.device, weights_only=True))
+        torch.load(path,     map_location=self.device, weights_only=True))
         return model
    def generate(self, model, tokenizer, prompt, max_length=100):
 
