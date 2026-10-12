@@ -1,3 +1,6 @@
+
+import torch
+import torch.nn as nn
 class GPT5(nn.Module):
     def __init__(self,vocab_size,d_model,num_heads,num_layers,max_seq_len):
       super().__init__()
