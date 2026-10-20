@@ -1,4 +1,4 @@
 
-from.gpt5 import GPT5
+from.GPT5 import GPT5
 
 
