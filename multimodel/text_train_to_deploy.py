@@ -31,15 +31,13 @@ class Text_Train_to_Deploy:
            error.backward()
            optimizer.step()
            total_loss += error.item()
-           self.total_train_loss.
-append(total_loss)
+           self.total_train_loss.append(total_loss)
 
            
       avg_loss = total_loss / len(loader)
 
            
-      self.avg_train_loss.
-append(avg_loss)
+      self.avg_train_loss.append(avg_loss)
    def validation(self,model,loader,loss_fun):
 
       model.to(self.device)
