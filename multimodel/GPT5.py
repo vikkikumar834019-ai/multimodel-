@@ -93,3 +93,4 @@ class GPT5(nn.Module):
 
 
        return tokenizer.decode(idx[0].tolist())
+
